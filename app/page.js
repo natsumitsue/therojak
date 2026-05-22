@@ -5,6 +5,7 @@ export default function Home() {
     { emoji: '🖼️', name: 'Image Compressor', desc: 'Compress images instantly', href: '/tools/image-compressor', ready: true },
     { emoji: '📱', name: 'QR Generator', desc: 'Generate QR codes free', href: '/tools/qr-generator', ready: true },
     { emoji: '🔐', name: 'Password Generator', desc: 'Strong passwords instantly', href: '/tools/password-generator', ready: true },
+    { emoji: '📄', name: 'Image to PDF', desc: 'Combine images into PDF', href: '/tools/image-to-pdf', ready: true },
   ];
 
   return (
