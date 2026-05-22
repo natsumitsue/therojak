@@ -6,6 +6,7 @@ export default function Home() {
     { emoji: '📱', name: 'QR Generator', desc: 'Generate QR codes free', href: '/tools/qr-generator', ready: true },
     { emoji: '🔐', name: 'Password Generator', desc: 'Strong passwords instantly', href: '/tools/password-generator', ready: true },
     { emoji: '📄', name: 'Image to PDF', desc: 'Combine images into PDF', href: '/tools/image-to-pdf', ready: true },
+    { emoji: '🧾', name: 'Invoice Generator', desc: 'Create professional invoices', href: '/tools/invoice-generator', ready: true },
   ];
 
   return (
