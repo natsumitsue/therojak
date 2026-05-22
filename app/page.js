@@ -7,6 +7,7 @@ export default function Home() {
     { emoji: '🔐', name: 'Password Generator', desc: 'Strong passwords instantly', href: '/tools/password-generator', ready: true },
     { emoji: '📄', name: 'Image to PDF', desc: 'Combine images into PDF', href: '/tools/image-to-pdf', ready: true },
     { emoji: '🧾', name: 'Invoice Generator', desc: 'Create professional invoices', href: '/tools/invoice-generator', ready: true },
+    { emoji: '✅', name: 'Task Tracker',       desc: 'Manage your tasks with login',  href: '/tools/task-tracker',      ready: true },
   ];
 
   return (
