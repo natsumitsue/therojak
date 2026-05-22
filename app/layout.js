@@ -15,6 +15,9 @@ export const metadata = {
   title: "TheRojak - Free Online Tools",
   description: "Free online tools for everyone. Compress images, generate QR codes, create strong passwords and more. No signup required.",
   keywords: "free online tools, image compressor, QR generator, password generator, free tools",
+  verification: {
+    google: "votBtdZMXmhUhJYb_JM4Poj_SFsLYA778EGX2NRAXzw",
+  },
   openGraph: {
     title: "TheRojak - Free Online Tools",
     description: "Free online tools for everyone. No signup required.",
