@@ -22,7 +22,6 @@ export default function InvoiceGenerator() {
   const subtotal = items.reduce((sum, item) => sum + (Number(item.qty) * Number(item.price)), 0);
   const tax = subtotal * 0.06;
   const total = subtotal + tax;
-
   const fmt = (n) => 'RM ' + Number(n).toFixed(2);
 
   const downloadPDF = async () => {
@@ -33,142 +32,158 @@ export default function InvoiceGenerator() {
       const w = 210;
       let y = 20;
 
-      pdf.setFillColor(10, 10, 15);
+      pdf.setFillColor(255, 255, 255);
       pdf.rect(0, 0, w, 297, 'F');
 
-      pdf.setTextColor(0, 180, 255);
-      pdf.setFontSize(28);
+      pdf.setFillColor(30, 58, 138);
+      pdf.rect(0, 0, w, 40, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(24);
       pdf.setFont('helvetica', 'bold');
-      pdf.text('INVOICE', 20, y);
-
-      pdf.setTextColor(200, 200, 255);
+      pdf.text('INVOICE', 20, 18);
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('Invoice #: ' + invoice.number, 20, y + 10);
-      pdf.text('Date: ' + invoice.date, 20, y + 16);
-      if (invoice.due) pdf.text('Due: ' + invoice.due, 20, y + 22);
+      pdf.text('Invoice #: ' + invoice.number, 20, 26);
+      pdf.text('Date: ' + invoice.date, 20, 32);
+      if (invoice.due) pdf.text('Due: ' + invoice.due, 20, 38);
 
-      y += 35;
-      pdf.setTextColor(74, 74, 122);
+      y = 55;
+      pdf.setTextColor(100, 100, 100);
       pdf.setFontSize(9);
       pdf.text('FROM', 20, y);
       pdf.text('TO', 110, y);
       y += 5;
-      pdf.setTextColor(200, 200, 255);
-      pdf.setFontSize(10);
+      pdf.setTextColor(30, 30, 30);
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'bold');
       pdf.text(from.name || '-', 20, y);
       pdf.text(to.name || '-', 110, y);
       y += 5;
-      pdf.setTextColor(74, 74, 122);
+      pdf.setFont('helvetica', 'normal');
       pdf.setFontSize(9);
+      pdf.setTextColor(100, 100, 100);
       if (from.email) pdf.text(from.email, 20, y);
       if (to.email) pdf.text(to.email, 110, y);
       y += 5;
-      if (from.address) { pdf.text(from.address, 20, y); }
-      if (to.address) { pdf.text(to.address, 110, y); }
+      if (from.address) pdf.text(from.address, 20, y);
+      if (to.address) pdf.text(to.address, 110, y);
 
       y += 15;
-      pdf.setFillColor(13, 13, 26);
-      pdf.rect(15, y - 4, w - 30, 8, 'F');
-      pdf.setTextColor(0, 180, 255);
+      pdf.setFillColor(30, 58, 138);
+      pdf.rect(15, y - 5, w - 30, 9, 'F');
+      pdf.setTextColor(255, 255, 255);
       pdf.setFontSize(9);
+      pdf.setFont('helvetica', 'bold');
       pdf.text('DESCRIPTION', 20, y);
-      pdf.text('QTY', 120, y);
-      pdf.text('PRICE', 145, y);
-      pdf.text('TOTAL', 170, y);
+      pdf.text('QTY', 125, y);
+      pdf.text('PRICE', 148, y);
+      pdf.text('TOTAL', 172, y);
 
-      y += 8;
-      items.forEach((item) => {
-        pdf.setTextColor(200, 200, 255);
+      y += 7;
+      items.forEach((item, idx) => {
+        if (idx % 2 === 0) {
+          pdf.setFillColor(245, 247, 255);
+          pdf.rect(15, y - 4, w - 30, 8, 'F');
+        }
+        pdf.setTextColor(30, 30, 30);
+        pdf.setFont('helvetica', 'normal');
         pdf.setFontSize(9);
         pdf.text(item.desc || '-', 20, y);
-        pdf.text(String(item.qty), 120, y);
-        pdf.text(Number(item.price).toFixed(2), 145, y);
-        pdf.text((Number(item.qty) * Number(item.price)).toFixed(2), 170, y);
-        y += 7;
+        pdf.text(String(item.qty), 125, y);
+        pdf.text(Number(item.price).toFixed(2), 148, y);
+        pdf.text((Number(item.qty) * Number(item.price)).toFixed(2), 172, y);
+        y += 8;
       });
 
       y += 5;
-      pdf.setDrawColor(26, 26, 62);
+      pdf.setDrawColor(200, 200, 200);
       pdf.line(15, y, w - 15, y);
       y += 8;
-      pdf.setTextColor(74, 74, 122);
-      pdf.text('Subtotal', 145, y);
-      pdf.setTextColor(200, 200, 255);
-      pdf.text(fmt(subtotal), 170, y);
+      pdf.setTextColor(100, 100, 100);
+      pdf.setFontSize(9);
+      pdf.text('Subtotal', 148, y);
+      pdf.setTextColor(30, 30, 30);
+      pdf.text(fmt(subtotal), 172, y);
       y += 6;
-      pdf.setTextColor(74, 74, 122);
-      pdf.text('SST (6%)', 145, y);
-      pdf.setTextColor(200, 200, 255);
-      pdf.text(fmt(tax), 170, y);
+      pdf.setTextColor(100, 100, 100);
+      pdf.text('SST (6%)', 148, y);
+      pdf.setTextColor(30, 30, 30);
+      pdf.text(fmt(tax), 172, y);
       y += 8;
-      pdf.setFillColor(0, 180, 255);
-      pdf.rect(140, y - 5, 55, 10, 'F');
-      pdf.setTextColor(0, 0, 0);
+      pdf.setFillColor(30, 58, 138);
+      pdf.rect(140, y - 6, 55, 10, 'F');
+      pdf.setTextColor(255, 255, 255);
       pdf.setFont('helvetica', 'bold');
-      pdf.text('TOTAL', 145, y + 1);
-      pdf.text(fmt(total), 165, y + 1);
+      pdf.setFontSize(10);
+      pdf.text('TOTAL', 145, y);
+      pdf.text(fmt(total), 165, y);
 
       if (notes) {
         y += 18;
-        pdf.setTextColor(74, 74, 122);
+        pdf.setTextColor(100, 100, 100);
         pdf.setFont('helvetica', 'normal');
         pdf.setFontSize(9);
         pdf.text('Notes:', 20, y);
         y += 5;
-        pdf.setTextColor(200, 200, 255);
+        pdf.setTextColor(30, 30, 30);
         pdf.text(notes, 20, y);
       }
 
-      pdf.setTextColor(42, 42, 74);
+      pdf.setFillColor(30, 58, 138);
+      pdf.rect(0, 285, w, 12, 'F');
+      pdf.setTextColor(255, 255, 255);
       pdf.setFontSize(8);
-      pdf.text('Generated by TheRojak.com', w / 2, 287, { align: 'center' });
+      pdf.text('Generated by TheRojak.com', w / 2, 292, { align: 'center' });
 
       pdf.save('invoice-' + invoice.number + '.pdf');
     } catch (err) { console.error(err); }
     setLoading(false);
   };
 
-  const inp = { background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '6px', color: '#fff', padding: '8px 12px', fontSize: '13px', width: '100%', boxSizing: 'border-box', outline: 'none' };
-  const label = { color: '#4a4a7a', fontSize: '12px', marginBottom: '4px', display: 'block' };
+  const inp = { background: '#fff', border: '1px solid #e2e8f0', borderRadius: '6px', color: '#1a202c', padding: '8px 12px', fontSize: '13px', width: '100%', boxSizing: 'border-box', outline: 'none' };
+  const label = { color: '#718096', fontSize: '12px', marginBottom: '4px', display: 'block' };
+  const card = { background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', marginBottom: '16px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' };
 
   return (
-    <main style={{background: '#0a0a0f', minHeight: '100vh', fontFamily: 'sans-serif'}}>
-      <header style={{background: '#0d0d1a', borderBottom: '1px solid #1a1a3e', padding: '14px 24px', display: 'flex', alignItems: 'center', gap: '12px'}}>
-        <a href="/" style={{color: '#4a4a7a', textDecoration: 'none', fontSize: '13px'}}>Back</a>
-        <span style={{color: '#fff', fontSize: '16px', fontWeight: '500'}}>The<span style={{color: '#00b4ff'}}>Rojak</span></span>
+    <main style={{background: '#f7f8fc', minHeight: '100vh', fontFamily: 'sans-serif'}}>
+      <header style={{background: '#1e3a8a', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+        <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+          <a href="/" style={{color: '#93c5fd', textDecoration: 'none', fontSize: '13px'}}>← Back</a>
+          <span style={{color: '#fff', fontSize: '16px', fontWeight: '500'}}>The<span style={{color: '#60a5fa'}}>Rojak</span></span>
+        </div>
+        <span style={{color: '#93c5fd', fontSize: '13px'}}>Invoice Generator</span>
       </header>
 
       <section style={{maxWidth: '800px', margin: '0 auto', padding: '40px 24px'}}>
-        <h1 style={{color: '#fff', fontSize: '32px', fontWeight: '500', margin: '0 0 8px', textAlign: 'center'}}>Invoice <span style={{color: '#00b4ff'}}>Generator</span></h1>
-        <p style={{color: '#4a4a7a', textAlign: 'center', marginBottom: '40px'}}>Create professional invoices. Free, no signup.</p>
+        <h1 style={{color: '#1e3a8a', fontSize: '32px', fontWeight: '700', margin: '0 0 8px', textAlign: 'center'}}>Invoice Generator</h1>
+        <p style={{color: '#718096', textAlign: 'center', marginBottom: '32px'}}>Create professional invoices instantly. Free, no signup.</p>
 
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px'}}>
-          <div style={{background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '12px', padding: '20px'}}>
-            <p style={{color: '#00b4ff', fontSize: '13px', fontWeight: '500', margin: '0 0 12px'}}>FROM</p>
-            <div style={{marginBottom: '10px'}}><label style={label}>Name</label><input style={inp} value={from.name} onChange={e => setFrom({...from, name: e.target.value})} placeholder="Your name / company" /></div>
+        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px'}}>
+          <div style={card}>
+            <p style={{color: '#1e3a8a', fontSize: '13px', fontWeight: '600', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.05em'}}>From</p>
+            <div style={{marginBottom: '10px'}}><label style={label}>Name / Company</label><input style={inp} value={from.name} onChange={e => setFrom({...from, name: e.target.value})} placeholder="Your name or company" /></div>
             <div style={{marginBottom: '10px'}}><label style={label}>Email</label><input style={inp} value={from.email} onChange={e => setFrom({...from, email: e.target.value})} placeholder="email@example.com" /></div>
             <div><label style={label}>Address</label><input style={inp} value={from.address} onChange={e => setFrom({...from, address: e.target.value})} placeholder="Your address" /></div>
           </div>
-          <div style={{background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '12px', padding: '20px'}}>
-            <p style={{color: '#00b4ff', fontSize: '13px', fontWeight: '500', margin: '0 0 12px'}}>TO</p>
-            <div style={{marginBottom: '10px'}}><label style={label}>Name</label><input style={inp} value={to.name} onChange={e => setTo({...to, name: e.target.value})} placeholder="Client name / company" /></div>
+          <div style={card}>
+            <p style={{color: '#1e3a8a', fontSize: '13px', fontWeight: '600', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.05em'}}>Bill To</p>
+            <div style={{marginBottom: '10px'}}><label style={label}>Name / Company</label><input style={inp} value={to.name} onChange={e => setTo({...to, name: e.target.value})} placeholder="Client name or company" /></div>
             <div style={{marginBottom: '10px'}}><label style={label}>Email</label><input style={inp} value={to.email} onChange={e => setTo({...to, email: e.target.value})} placeholder="client@example.com" /></div>
             <div><label style={label}>Address</label><input style={inp} value={to.address} onChange={e => setTo({...to, address: e.target.value})} placeholder="Client address" /></div>
           </div>
         </div>
 
-        <div style={{background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '12px', padding: '20px', marginBottom: '24px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px'}}>
+        <div style={{...card, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px'}}>
           <div><label style={label}>Invoice #</label><input style={inp} value={invoice.number} onChange={e => setInvoice({...invoice, number: e.target.value})} /></div>
           <div><label style={label}>Date</label><input style={inp} type="date" value={invoice.date} onChange={e => setInvoice({...invoice, date: e.target.value})} /></div>
           <div><label style={label}>Due Date</label><input style={inp} type="date" value={invoice.due} onChange={e => setInvoice({...invoice, due: e.target.value})} /></div>
         </div>
 
-        <div style={{background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '12px', padding: '20px', marginBottom: '24px'}}>
-          <div style={{display: 'grid', gridTemplateColumns: '1fr 80px 100px 40px', gap: '8px', marginBottom: '8px'}}>
-            <span style={{color: '#4a4a7a', fontSize: '12px'}}>Description</span>
-            <span style={{color: '#4a4a7a', fontSize: '12px'}}>Qty</span>
-            <span style={{color: '#4a4a7a', fontSize: '12px'}}>Price (RM)</span>
+        <div style={card}>
+          <div style={{display: 'grid', gridTemplateColumns: '1fr 80px 100px 40px', gap: '8px', marginBottom: '8px', paddingBottom: '8px', borderBottom: '2px solid #1e3a8a'}}>
+            <span style={{color: '#1e3a8a', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase'}}>Description</span>
+            <span style={{color: '#1e3a8a', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase'}}>Qty</span>
+            <span style={{color: '#1e3a8a', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase'}}>Price (RM)</span>
             <span></span>
           </div>
           {items.map((item, i) => (
@@ -176,34 +191,34 @@ export default function InvoiceGenerator() {
               <input style={inp} value={item.desc} onChange={e => updateItem(i, 'desc', e.target.value)} placeholder="Item description" />
               <input style={inp} type="number" value={item.qty} onChange={e => updateItem(i, 'qty', e.target.value)} min="1" />
               <input style={inp} type="number" value={item.price} onChange={e => updateItem(i, 'price', e.target.value)} min="0" step="0.01" />
-              <button onClick={() => removeItem(i)} style={{background: 'transparent', border: '1px solid #ff444422', borderRadius: '6px', color: '#ff4444', cursor: 'pointer', fontSize: '16px'}}>✕</button>
+              <button onClick={() => removeItem(i)} style={{background: '#fff5f5', border: '1px solid #fed7d7', borderRadius: '6px', color: '#e53e3e', cursor: 'pointer', fontSize: '14px'}}>✕</button>
             </div>
           ))}
-          <button onClick={addItem} style={{background: 'transparent', border: '1px dashed #1a1a3e', borderRadius: '6px', color: '#4a4a7a', cursor: 'pointer', padding: '8px 16px', fontSize: '13px', marginTop: '8px'}}>+ Add Item</button>
+          <button onClick={addItem} style={{background: '#ebf8ff', border: '1px dashed #90cdf4', borderRadius: '6px', color: '#2b6cb0', cursor: 'pointer', padding: '8px 16px', fontSize: '13px', marginTop: '8px'}}>+ Add Item</button>
 
-          <div style={{borderTop: '1px solid #1a1a3e', marginTop: '16px', paddingTop: '16px'}}>
+          <div style={{borderTop: '1px solid #e2e8f0', marginTop: '16px', paddingTop: '16px'}}>
             <div style={{display: 'flex', justifyContent: 'flex-end', gap: '24px', marginBottom: '6px'}}>
-              <span style={{color: '#4a4a7a', fontSize: '13px'}}>Subtotal</span>
-              <span style={{color: '#e0e0ff', fontSize: '13px', minWidth: '80px', textAlign: 'right'}}>{fmt(subtotal)}</span>
+              <span style={{color: '#718096', fontSize: '13px'}}>Subtotal</span>
+              <span style={{color: '#2d3748', fontSize: '13px', minWidth: '80px', textAlign: 'right'}}>{fmt(subtotal)}</span>
             </div>
-            <div style={{display: 'flex', justifyContent: 'flex-end', gap: '24px', marginBottom: '6px'}}>
-              <span style={{color: '#4a4a7a', fontSize: '13px'}}>SST (6%)</span>
-              <span style={{color: '#e0e0ff', fontSize: '13px', minWidth: '80px', textAlign: 'right'}}>{fmt(tax)}</span>
+            <div style={{display: 'flex', justifyContent: 'flex-end', gap: '24px', marginBottom: '12px'}}>
+              <span style={{color: '#718096', fontSize: '13px'}}>SST (6%)</span>
+              <span style={{color: '#2d3748', fontSize: '13px', minWidth: '80px', textAlign: 'right'}}>{fmt(tax)}</span>
             </div>
-            <div style={{display: 'flex', justifyContent: 'flex-end', gap: '24px', background: '#00b4ff22', borderRadius: '8px', padding: '10px 16px'}}>
-              <span style={{color: '#00b4ff', fontSize: '15px', fontWeight: '600'}}>TOTAL</span>
-              <span style={{color: '#00b4ff', fontSize: '15px', fontWeight: '600', minWidth: '80px', textAlign: 'right'}}>{fmt(total)}</span>
+            <div style={{display: 'flex', justifyContent: 'flex-end', gap: '24px', background: '#1e3a8a', borderRadius: '8px', padding: '12px 16px'}}>
+              <span style={{color: '#fff', fontSize: '15px', fontWeight: '700'}}>TOTAL</span>
+              <span style={{color: '#fff', fontSize: '15px', fontWeight: '700', minWidth: '80px', textAlign: 'right'}}>{fmt(total)}</span>
             </div>
           </div>
         </div>
 
-        <div style={{background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '12px', padding: '20px', marginBottom: '24px'}}>
+        <div style={card}>
           <label style={label}>Notes (optional)</label>
           <textarea style={{...inp, height: '80px', resize: 'vertical'}} value={notes} onChange={e => setNotes(e.target.value)} placeholder="Payment terms, bank details, thank you note..." />
         </div>
 
-        <button onClick={downloadPDF} style={{width: '100%', padding: '14px', background: '#00b4ff', border: 'none', borderRadius: '8px', color: '#000', fontSize: '15px', fontWeight: '600', cursor: 'pointer'}}>
-          {loading ? 'Generating PDF...' : 'Download Invoice PDF'}
+        <button onClick={downloadPDF} style={{width: '100%', padding: '14px', background: '#1e3a8a', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '15px', fontWeight: '600', cursor: 'pointer'}}>
+          {loading ? 'Generating PDF...' : '📄 Download Invoice PDF'}
         </button>
       </section>
     </main>
