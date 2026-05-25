@@ -11,6 +11,7 @@ export default function Home() {
     { emoji: '🧾', name: 'Invoice Generator', desc: 'Create professional invoices', href: '/tools/invoice-generator', ready: true },
     { emoji: '✅', name: 'Task Tracker', desc: 'Manage your tasks with login',  href: '/tools/task-tracker', ready: true },
     { emoji: '📅', name: 'Calendar', desc: 'Track events & important dates', href: '/tools/calendar', ready: true },
+    { emoji: '💱', name: 'Currency & Gold', desc: 'Live MYR, USD & gold rates', href: '/tools/currency', ready: true },
   ];
 
   return (
