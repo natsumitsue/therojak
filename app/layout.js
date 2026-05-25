@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "TheRojak - Free Online Tools",
-  description: "Free online tools for everyone. Compress images, generate QR codes, create strong passwords and more. No signup required.",
-  keywords: "free online tools, image compressor, QR generator, password generator, free tools",
+  description: "Free online tools for everyone — compress images, generate QR codes, create strong passwords, convert images to PDF, generate invoices, track tasks, manage calendar events, check live gold price and MYR to USD exchange rate. Fast, free, no signup required.",
+  keywords: "free online tools, image compressor, QR code generator, password generator, image to PDF, invoice generator, task tracker, calendar, gold price Malaysia, MYR USD exchange rate, free tools no signup",
   verification: {
     google: "votBtdZMXmhUhJYb_JM4Poj_SFsLYA778EGX2NRAXzw",
   },
