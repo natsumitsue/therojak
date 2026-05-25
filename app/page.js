@@ -13,6 +13,7 @@ export default function Home() {
     { emoji: '📅', name: 'Calendar', desc: 'Track events & important dates', href: '/tools/calendar', ready: true, protected: true },
     { emoji: '💱', name: 'Currency & Gold', desc: 'Live MYR, USD & gold rates', href: '/tools/currency', ready: true },
     { emoji: '📦', name: 'Asset Management', desc: 'Track & book office assets', href: '/tools/assets', ready: true, protected: true },
+    { emoji: '🌐', name: 'Network Tools', desc: 'IP, DNS, Whois, SSL, Port & Ping checker', href: '/tools/network', ready: true },
   ];
 
   return (
