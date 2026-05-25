@@ -149,7 +149,7 @@ async function pageSpeedCheck(url) {
     if (!data) return null
     const cats = data.lighthouseResult?.categories
     const audits = data.lighthouseResult?.audits
-    const metrics = data.lighthouseResult?.audits
+    //const metrics = data.lighthouseResult?.audits
 
     return {
       strategy,

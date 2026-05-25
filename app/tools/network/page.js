@@ -242,7 +242,7 @@ function PageSpeedResult({ data }) {
             { label: 'SEO', score: scores.seo },
           ].map((s, i) => (
             <div key={i} style={{ padding: '0.85rem', borderBottom: i < 2 ? '1px solid var(--border)' : 'none', borderRight: i % 2 === 0 ? '1px solid var(--border)' : 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: scoreBg(s.score), border: `2px solid ${scoreColor(s.score)}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 800, color: scoreColor(s.score) }}>{s.score}</div>
+              <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: s.score > 0 ? scoreBg(s.score) : 'rgba(128,128,128,0.08)', border: `2px solid ${s.score > 0 ? scoreColor(s.score) : 'rgba(128,128,128,0.2)'}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', fontWeight: 800, color: s.score > 0 ? scoreColor(s.score) : 'var(--text-muted)' }}>{s.score > 0 ? s.score : '—'}</div>
               <span style={{ color: 'var(--text-muted)', fontSize: '0.65rem', textAlign: 'center', fontWeight: 500 }}>{s.label}</span>
             </div>
           ))}
