@@ -12,6 +12,7 @@ export default function Home() {
     { emoji: '✅', name: 'Task Tracker', desc: 'Manage your tasks with login',  href: '/tools/task-tracker', ready: true, protected: true },
     { emoji: '📅', name: 'Calendar', desc: 'Track events & important dates', href: '/tools/calendar', ready: true, protected: true },
     { emoji: '💱', name: 'Currency & Gold', desc: 'Live MYR, USD & gold rates', href: '/tools/currency', ready: true },
+    { emoji: '📦', name: 'Asset Management', desc: 'Track & book office assets', href: '/tools/assets', ready: true, protected: true },
   ];
 
   return (
