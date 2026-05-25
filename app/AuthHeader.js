@@ -1,0 +1,76 @@
+'use client'
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Add this AuthHeader component to your app/page.js
+// It shows Login button when logged out, email + Sign out when logged in
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase'
+
+export function AuthHeader() {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user ?? null)
+      setLoading(false)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
+  if (loading) return <div style={{ width: '80px' }} />
+
+  if (user) return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+      <span style={{ color: '#4a4a7a', fontSize: '0.78rem', maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        {user.email}
+      </span>
+      <button
+        onClick={async () => { await supabase.auth.signOut(); setUser(null) }}
+        style={{
+          background: 'none', border: '1px solid #1a1a3e', borderRadius: '6px',
+          padding: '0.3rem 0.7rem', color: '#4a4a7a', fontSize: '0.75rem',
+          cursor: 'pointer', fontFamily: 'sans-serif', transition: 'all 0.15s',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.color = '#e0e0ff'; e.currentTarget.style.borderColor = '#4a4a7a' }}
+        onMouseLeave={e => { e.currentTarget.style.color = '#4a4a7a'; e.currentTarget.style.borderColor = '#1a1a3e' }}
+      >
+        Sign out
+      </button>
+    </div>
+  )
+
+  return (
+    <a href="/login" style={{
+      background: 'rgba(0,180,255,0.12)', border: '1px solid rgba(0,180,255,0.35)',
+      borderRadius: '7px', padding: '0.35rem 0.85rem',
+      color: '#00b4ff', fontSize: '0.8rem', fontWeight: 600,
+      textDecoration: 'none', transition: 'all 0.2s', display: 'inline-block',
+    }}
+      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,180,255,0.22)' }}
+      onMouseLeave={e => { e.currentTarget.style.background = 'rgba(0,180,255,0.12)' }}
+    >
+      Sign in
+    </a>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// In your existing homepage, add AuthHeader inside the header section.
+// Example — find your header in app/page.js and add AuthHeader at the right end:
+//
+// import { AuthHeader } from './AuthHeader'   ← or wherever you put this file
+//
+// <header style={{ ... }}>
+//   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+//     <span>TheRojak</span>
+//     <AuthHeader />           ← ADD THIS
+//   </div>
+// </header>
+// ─────────────────────────────────────────────────────────────────────────────
