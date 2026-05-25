@@ -10,6 +10,7 @@ export default function Home() {
     { emoji: '📄', name: 'Image to PDF', desc: 'Combine images into PDF', href: '/tools/image-to-pdf', ready: true },
     { emoji: '🧾', name: 'Invoice Generator', desc: 'Create professional invoices', href: '/tools/invoice-generator', ready: true },
     { emoji: '✅', name: 'Task Tracker', desc: 'Manage your tasks with login',  href: '/tools/task-tracker', ready: true },
+    { emoji: '📅', name: 'Calendar', desc: 'Track events & important dates', href: '/tools/calendar', ready: true },
   ];
 
   return (
