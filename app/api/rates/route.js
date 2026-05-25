@@ -2,55 +2,46 @@ import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    // Test Frankfurter v2 format
-    const fxRes = await fetch('https://api.frankfurter.dev/v2/latest?base=USD&symbols=MYR')
+    // Currency: frankfurter.app
+    const fxRes = await fetch('https://api.frankfurter.app/latest?from=USD&to=MYR')
     const fxData = await fxRes.json()
+    const usdToMyr = fxData?.rates?.MYR ?? null
 
-    let usdToMyr = null
-
-    // Try v2 format first (rates.MYR)
-    if (fxData?.rates?.MYR) {
-      usdToMyr = fxData.rates.MYR
-    }
-    // Fallback: try old frankfurter format
-    else if (fxData?.rates?.MYR) {
-      usdToMyr = fxData.rates.MYR
-    }
-
-    // If v2 failed, try old endpoint
-    if (!usdToMyr) {
-      const fxRes2 = await fetch('https://api.frankfurter.app/latest?from=USD&to=MYR')
-      const fxData2 = await fxRes2.json()
-      usdToMyr = fxData2?.rates?.MYR ?? null
-    }
-
-    // Previous day for % change
+    // Previous day % change
     let fxChange = null
     if (usdToMyr) {
       try {
-        const prevRes = await fetch('https://api.frankfurter.app/2026-05-22?from=USD&to=MYR')
+        const prevRes = await fetch('https://api.frankfurter.app/2026-05-23?from=USD&to=MYR')
         const prevData = await prevRes.json()
         const prevRate = prevData?.rates?.MYR
-        if (prevRate) {
-          fxChange = ((usdToMyr - prevRate) / prevRate) * 100
-        }
+        if (prevRate) fxChange = ((usdToMyr - prevRate) / prevRate) * 100
       } catch {}
     }
 
-    // Gold price
+    // Gold Method 1: metals.live
     let goldUsd = null
     let goldChange = null
 
     try {
-      const goldRes = await fetch('https://gold-api.com/price/XAU', {
-        headers: { 'Accept': 'application/json' }
-      })
+      const goldRes = await fetch('https://api.metals.live/v1/spot/gold')
       const goldData = await goldRes.json()
-      goldUsd = goldData?.price ?? goldData?.Price ?? null
-      goldChange = goldData?.chp ?? goldData?.change_percent ?? null
+      if (Array.isArray(goldData) && goldData[0]?.gold) {
+        goldUsd = goldData[0].gold
+      } else if (goldData?.gold) {
+        goldUsd = goldData.gold
+      }
     } catch {}
 
-    // Fallback gold via frankfurter XAU
+    // Gold Method 2: fawazahmed0 CDN (XAU in USD)
+    if (!goldUsd) {
+      try {
+        const xauRes = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/xau.json')
+        const xauData = await xauRes.json()
+        if (xauData?.xau?.usd) goldUsd = xauData.xau.usd
+      } catch {}
+    }
+
+    // Gold Method 3: frankfurter XAU/USD
     if (!goldUsd) {
       try {
         const xauRes = await fetch('https://api.frankfurter.app/latest?from=XAU&to=USD')
@@ -74,10 +65,9 @@ export async function GET() {
       goldPerOzMyr,
       goldChange,
       updatedAt: new Date().toISOString(),
-      _debug: { fxData: JSON.stringify(fxData).slice(0, 200) }
     })
 
   } catch (err) {
-    return NextResponse.json({ error: err.message, stack: err.stack?.slice(0, 300) }, { status: 500 })
+    return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }
