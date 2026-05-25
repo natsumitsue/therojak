@@ -5,17 +5,17 @@
   --foreground: #171717;
 
     /* Tambah baris ni */
-  --bg-base: #050508;
-  --bg-card: #0d0d1a;
-  --border: #3a3a6e;
-  --accent: #00b4ff;
-  --text-primary: #e0e0ff;
-  --text-muted: #4a4a7a;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #f87171;
-  --purple: #a78bfa;
-  --pink: #f472b6;
+  --bg-base: #f0f4f8;
+  --bg-card: #ffffff;
+  --border: #c8d8e8;
+  --accent: #0090cc;
+  --text-primary: #0a0a2e;
+  --text-muted: #5a6a7a;
+  --success: #0a9e6a;
+  --warning: #d4860a;
+  --danger: #d94040;
+  --purple: #6a5abf;
+  --pink: #c4327a;
 }
 
 @theme inline {
