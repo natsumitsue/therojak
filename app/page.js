@@ -34,7 +34,7 @@ export default function Home() {
         {tools.map((tool) => (
           tool.ready ? (
             <Link key={tool.name} href={tool.href} style={{textDecoration: 'none'}}>
-              <div style={{background: 'var(--bg-card)', border: '1px solid var(--accent)44', borderRadius: '10px', padding: '24px 20px', cursor: 'pointer', height: '100%'}}>
+              <div style={{background: 'var(--bg-card)', border: '1px solid rgba(0,180,255,0.27)', borderRadius: '10px', padding: '24px 20px', cursor: 'pointer', height: '100%'}}>
                 <div style={{fontSize: '28px', marginBottom: '12px'}}>{tool.emoji}</div>
                 <h3 style={{color: 'var(--accent)', fontSize: '15px', fontWeight: '500', margin: '0 0 6px'}}>{tool.name}</h3>
                 <p style={{color: 'var(--text-muted)', fontSize: '13px', margin: '0'}}>{tool.desc}</p>
@@ -49,7 +49,7 @@ export default function Home() {
           )
         ))}
 
-        <div style={{background: '#0a0f1a', border: '1px dashed var(--accent)44', borderRadius: '10px', padding: '24px 20px'}}>
+        <div style={{background: '#0a0f1a', border: '1px dashed rgba(0,180,255,0.27)', borderRadius: '10px', padding: '24px 20px'}}>
           <div style={{fontSize: '28px', marginBottom: '12px'}}>➕</div>
           <h3 style={{color: 'var(--accent)', fontSize: '15px', fontWeight: '500', margin: '0 0 6px'}}>More Coming Soon</h3>
           <p style={{color: '#1a3a5e', fontSize: '13px', margin: '0'}}>New tools added regularly</p>

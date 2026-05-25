@@ -63,7 +63,7 @@ export default function ImageCompressor() {
                 <p style={{color: 'var(--text-muted)', fontSize: '13px', margin: '0 0 4px'}}>Compressed</p>
                 <p style={{color: 'var(--accent)', fontSize: '20px', fontWeight: '500', margin: '0'}}>{formatSize(compressed.size)}</p>
               </div>
-              <div style={{background: 'var(--accent)22', border: '1px solid var(--accent)44', borderRadius: '8px', padding: '8px 16px'}}>
+              <div style={{background: 'var(--accent)22', border: '1px solid rgba(0,180,255,0.27)', borderRadius: '8px', padding: '8px 16px'}}>
                 <p style={{color: 'var(--accent)', fontSize: '20px', fontWeight: '600', margin: '0'}}>{savings}% saved</p>
               </div>
             </div>
@@ -74,7 +74,7 @@ export default function ImageCompressor() {
               </div>
               <div>
                 <p style={{color: 'var(--text-muted)', fontSize: '12px', marginBottom: '8px'}}>Compressed</p>
-                <img src={compressed.url} alt="Compressed" style={{width: '100%', borderRadius: '8px', border: '1px solid var(--accent)44'}} />
+                <img src={compressed.url} alt="Compressed" style={{width: '100%', borderRadius: '8px', border: '1px solid rgba(0,180,255,0.27)'}} />
               </div>
             </div>
             <a href={compressed.url} download="compressed-image.jpg" style={{display: 'block', textAlign: 'center', padding: '14px', background: 'var(--accent)', borderRadius: '8px', color: '#000', textDecoration: 'none', fontSize: '15px', fontWeight: '600'}}>Download Compressed Image</a>
