@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 async function safeFetch(url, opts = {}) {
   try {
-    const res = await fetch(url, { ...opts, signal: AbortSignal.timeout(15000) })
+    const res = await fetch(url, { ...opts, signal: AbortSignal.timeout(25000) })
     if (!res.ok) return null
     return await res.json()
   } catch { return null }
@@ -135,15 +135,16 @@ async function pageSpeedCheck(url) {
   const fullUrl = url.startsWith('http') ? url : `https://${url}`
 
   // Fetch both mobile and desktop
-  const [mobileRes, desktopRes] = await Promise.allSettled([
-    safeFetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(fullUrl)}&strategy=mobile&key=${process.env.PAGESPEED_API_KEY}`),
-    safeFetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(fullUrl)}&strategy=desktop&key=${process.env.PAGESPEED_API_KEY}`),
-  ])
+  const mobileData  = await safeFetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(fullUrl)}&strategy=mobile&key=${process.env.PAGESPEED_API_KEY}`)
+  const desktopData = await safeFetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(fullUrl)}&strategy=desktop&key=${process.env.PAGESPEED_API_KEY}`)
 
-  const mobile  = mobileRes.status === 'fulfilled'  ? mobileRes.value  : null
-  const desktop = desktopRes.status === 'fulfilled' ? desktopRes.value : null
+  if (!mobileData && !desktopData) return { error: 'PageSpeed check failed — check the URL and try again' }
 
-  if (!mobile && !desktop) return { error: 'PageSpeed check failed — check the URL and try again' }
+return {
+  url: fullUrl,
+  mobile:  parseResult(mobileData,  'mobile'),
+  desktop: parseResult(desktopData, 'desktop'),
+}
 
   function parseResult(data, strategy) {
     if (!data) return null
