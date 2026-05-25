@@ -9,8 +9,8 @@ export default function Home() {
     { emoji: '🔐', name: 'Password Generator', desc: 'Strong passwords instantly', href: '/tools/password-generator', ready: true },
     { emoji: '📄', name: 'Image to PDF', desc: 'Combine images into PDF', href: '/tools/image-to-pdf', ready: true },
     { emoji: '🧾', name: 'Invoice Generator', desc: 'Create professional invoices', href: '/tools/invoice-generator', ready: true },
-    { emoji: '✅', name: 'Task Tracker', desc: 'Manage your tasks with login - Sign-in needed',  href: '/tools/task-tracker', ready: true },
-    { emoji: '📅', name: 'Calendar', desc: 'Track events & important dates - Sign-in needed', href: '/tools/calendar', ready: true },
+    { emoji: '✅', name: 'Task Tracker', desc: 'Manage your tasks with login - Sign-in needed',  href: '/tools/task-tracker', ready: true, protected: true },
+    { emoji: '📅', name: 'Calendar', desc: 'Track events & important dates - Sign-in needed', href: '/tools/calendar', ready: true, protected: true },
     { emoji: '💱', name: 'Currency & Gold', desc: 'Live MYR, USD & gold rates', href: '/tools/currency', ready: true },
   ];
 
@@ -32,23 +32,38 @@ export default function Home() {
       </section>
 
       <section style={{maxWidth: '1100px', margin: '0 auto', padding: '0 24px 60px', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px'}}>
-        {tools.map((tool) => (
-          tool.ready ? (
-            <Link key={tool.name} href={tool.href} style={{textDecoration: 'none'}}>
-              <div style={{background: 'var(--bg-card)', border: '1px solid rgba(0,180,255,0.27)', borderRadius: '10px', padding: '24px 20px', cursor: 'pointer', height: '100%'}}>
+          {tools.map((tool) => (
+            tool.ready ? (
+              <Link key={tool.name} href={tool.href} style={{textDecoration: 'none'}}>
+                <div style={{background: 'var(--bg-card)', border: '1px solid rgba(0,180,255,0.27)', borderRadius: '10px', padding: '24px 20px', cursor: 'pointer', height: '100%', position: 'relative'}}>
+                  
+                  {tool.protected && (
+                    <div style={{
+                      position: 'absolute', top: '10px', right: '10px',
+                      background: 'rgba(0,180,255,0.1)', border: '1px solid rgba(0,180,255,0.3)',
+                      borderRadius: '99px', padding: '2px 7px',
+                      display: 'flex', alignItems: 'center', gap: '3px',
+                    }}>
+                      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.5">
+                        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+                      </svg>
+                      <span style={{fontSize: '10px', color: 'var(--accent)', fontWeight: 600}}>Sign in</span>
+                    </div>
+                  )}
+
+                  <div style={{fontSize: '28px', marginBottom: '12px'}}>{tool.emoji}</div>
+                  <h3 style={{color: 'var(--accent)', fontSize: '15px', fontWeight: '500', margin: '0 0 6px'}}>{tool.name}</h3>
+                  <p style={{color: 'var(--text-muted)', fontSize: '13px', margin: '0'}}>{tool.desc}</p>
+                </div>
+              </Link>
+            ) : (
+              <div key={tool.name} style={{background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '10px', padding: '24px 20px', opacity: '0.6'}}>
                 <div style={{fontSize: '28px', marginBottom: '12px'}}>{tool.emoji}</div>
-                <h3 style={{color: 'var(--accent)', fontSize: '15px', fontWeight: '500', margin: '0 0 6px'}}>{tool.name}</h3>
+                <h3 style={{color: 'var(--text-primary)', fontSize: '15px', fontWeight: '500', margin: '0 0 6px'}}>{tool.name}</h3>
                 <p style={{color: 'var(--text-muted)', fontSize: '13px', margin: '0'}}>{tool.desc}</p>
               </div>
-            </Link>
-          ) : (
-            <div key={tool.name} style={{background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '10px', padding: '24px 20px', opacity: '0.6'}}>
-              <div style={{fontSize: '28px', marginBottom: '12px'}}>{tool.emoji}</div>
-              <h3 style={{color: 'var(--text-primary)', fontSize: '15px', fontWeight: '500', margin: '0 0 6px'}}>{tool.name}</h3>
-              <p style={{color: 'var(--text-muted)', fontSize: '13px', margin: '0'}}>{tool.desc}</p>
-            </div>
-          )
-        ))}
+            )
+          ))}
 
         <div style={{background: '#0a0f1a', border: '1px dashed rgba(0,180,255,0.27)', borderRadius: '10px', padding: '24px 20px'}}>
           <div style={{fontSize: '28px', marginBottom: '12px'}}>➕</div>
