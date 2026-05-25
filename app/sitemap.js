@@ -7,13 +7,13 @@ export default function sitemap() {
       priority: 1,
     },
     {
-      url: 'https://therojak.com/tools/qr-generator',
+      url: 'https://therojak.com/tools/image-compressor',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: 'https://therojak.com/tools/image-compressor',
+      url: 'https://therojak.com/tools/qr-generator',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
@@ -23,6 +23,30 @@ export default function sitemap() {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      url: 'https://therojak.com/tools/image-to-pdf',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://therojak.com/tools/invoice-generator',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://therojak.com/tools/currency',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: 'https://therojak.com/login',
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ];
 }
