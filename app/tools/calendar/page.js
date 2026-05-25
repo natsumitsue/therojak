@@ -7,12 +7,12 @@ import { useRouter } from 'next/navigation'
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const CATEGORY_CONFIG = {
-  event:    { label: 'Event',    color: '#00b4ff', icon: '📅' },
+  event:    { label: 'Event',    color: 'var(--accent)', icon: '📅' },
   birthday: { label: 'Birthday', color: '#f472b6', icon: '🎂' },
-  holiday:  { label: 'Holiday',  color: '#10b981', icon: '🌴' },
-  reminder: { label: 'Reminder', color: '#f59e0b', icon: '🔔' },
+  holiday:  { label: 'Holiday',  color: 'var(--success)', icon: '🌴' },
+  reminder: { label: 'Reminder', color: 'var(--warning)', icon: '🔔' },
   meeting:  { label: 'Meeting',  color: '#a78bfa', icon: '👥' },
-  deadline: { label: 'Deadline', color: '#f87171', icon: '🚨' },
+  deadline: { label: 'Deadline', color: 'var(--danger)', icon: '🚨' },
 }
 
 const REPEAT_OPTIONS = [
@@ -28,14 +28,14 @@ const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
 
 const inputCss = {
   width: '100%', boxSizing: 'border-box',
-  background: 'rgba(255,255,255,0.03)', border: '1px solid #1a1a3e',
+  background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)',
   borderRadius: '8px', padding: '0.65rem 0.9rem',
-  color: '#e0e0ff', fontSize: '0.88rem', outline: 'none',
+  color: 'var(--text-primary)', fontSize: '0.88rem', outline: 'none',
   fontFamily: 'sans-serif', transition: 'border-color 0.2s',
 }
 
 const labelCss = {
-  display: 'block', color: '#4a4a7a', fontSize: '0.7rem', fontWeight: 600,
+  display: 'block', color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 600,
   marginBottom: '0.35rem', textTransform: 'uppercase', letterSpacing: '0.06em',
 }
 
@@ -187,16 +187,16 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem',
     }}>
       <div onClick={e => e.stopPropagation()} style={{
-        background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '16px',
+        background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '16px',
         padding: '1.75rem', width: '100%', maxWidth: '460px',
         boxShadow: '0 8px 60px rgba(0,0,0,0.8)', maxHeight: '90vh', overflowY: 'auto',
       }}>
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.4rem' }}>
-          <h2 style={{ color: '#e0e0ff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>
+          <h2 style={{ color: 'var(--text-primary)', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>
             {event ? 'Edit event' : 'New event'}
           </h2>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#4a4a7a', cursor: 'pointer', padding: '4px' }}>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
@@ -208,7 +208,7 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
             <input autoFocus value={title} onChange={e => setTitle(e.target.value)}
               placeholder="Event name..." style={inputCss}
               onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-              onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+              onBlur={e => e.target.style.borderColor = 'var(--border)'}
             />
           </div>
 
@@ -221,8 +221,8 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
                   padding: '0.35rem 0.75rem', borderRadius: '99px', fontSize: '0.78rem',
                   fontWeight: 500, cursor: 'pointer', fontFamily: 'sans-serif',
                   background: category === key ? `${cfg.color}20` : 'transparent',
-                  border: `1px solid ${category === key ? cfg.color + '60' : '#1a1a3e'}`,
-                  color: category === key ? cfg.color : '#4a4a7a',
+                  border: `1px solid ${category === key ? cfg.color + '60' : 'var(--border)'}`,
+                  color: category === key ? cfg.color : 'var(--text-muted)',
                   transition: 'all 0.15s',
                 }}>
                   {cfg.icon} {cfg.label}
@@ -238,7 +238,7 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
               <input type="date" value={date} onChange={e => setDate(e.target.value)}
                 style={{ ...inputCss, colorScheme: 'dark' }}
                 onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                onBlur={e => e.target.style.borderColor = 'var(--border)'}
               />
             </div>
             <div>
@@ -246,7 +246,7 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
               <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)}
                 style={{ ...inputCss, colorScheme: 'dark' }}
                 onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                onBlur={e => e.target.style.borderColor = 'var(--border)'}
               />
             </div>
           </div>
@@ -256,7 +256,7 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
             <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', userSelect: 'none' }}>
               <div onClick={() => setAllDay(!allDay)} style={{
                 width: '36px', height: '20px', borderRadius: '10px', position: 'relative',
-                background: allDay ? 'rgba(0,180,255,0.3)' : '#1a1a3e',
+                background: allDay ? 'rgba(0,180,255,0.3)' : 'var(--border)',
                 border: `1px solid ${allDay ? 'rgba(0,180,255,0.5)' : '#2a2a4e'}`,
                 cursor: 'pointer', transition: 'all 0.2s',
               }}>
@@ -264,18 +264,18 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
                   position: 'absolute', top: '2px',
                   left: allDay ? '18px' : '2px',
                   width: '14px', height: '14px', borderRadius: '50%',
-                  background: allDay ? '#00b4ff' : '#4a4a7a',
+                  background: allDay ? 'var(--accent)' : 'var(--text-muted)',
                   transition: 'all 0.2s',
                 }}/>
               </div>
-              <span style={{ color: '#4a4a7a', fontSize: '0.82rem' }}>All day</span>
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>All day</span>
             </label>
             {!allDay && (
               <div style={{ flex: 1 }}>
                 <input type="time" value={time} onChange={e => setTime(e.target.value)}
                   style={{ ...inputCss, colorScheme: 'dark' }}
                   onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                  onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                  onBlur={e => e.target.style.borderColor = 'var(--border)'}
                 />
               </div>
             )}
@@ -298,7 +298,7 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
               placeholder="Add notes... (optional)" rows={2}
               style={{ ...inputCss, resize: 'vertical', lineHeight: 1.6 }}
               onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-              onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+              onBlur={e => e.target.style.borderColor = 'var(--border)'}
             />
           </div>
 
@@ -308,20 +308,20 @@ function EventModal({ event, defaultDate, onClose, onSave, onDelete }) {
               <button onClick={() => onDelete(event.id)} style={{
                 background: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.25)',
                 borderRadius: '8px', padding: '0.7rem 0.9rem',
-                color: '#f87171', fontSize: '0.85rem', cursor: 'pointer', fontFamily: 'sans-serif',
+                color: 'var(--danger)', fontSize: '0.85rem', cursor: 'pointer', fontFamily: 'sans-serif',
               }}>Delete</button>
             )}
             <button onClick={onClose} style={{
-              flex: 1, background: 'transparent', border: '1px solid #1a1a3e',
-              borderRadius: '8px', padding: '0.7rem', color: '#4a4a7a',
+              flex: 1, background: 'transparent', border: '1px solid var(--border)',
+              borderRadius: '8px', padding: '0.7rem', color: 'var(--text-muted)',
               fontSize: '0.88rem', cursor: 'pointer', fontFamily: 'sans-serif',
             }}>Cancel</button>
             <button onClick={handleSave} disabled={!title.trim() || !date} style={{
               flex: 2,
               background: (title.trim() && date) ? 'rgba(0,180,255,0.15)' : 'rgba(255,255,255,0.03)',
-              border: `1px solid ${(title.trim() && date) ? 'rgba(0,180,255,0.4)' : '#1a1a3e'}`,
+              border: `1px solid ${(title.trim() && date) ? 'rgba(0,180,255,0.4)' : 'var(--border)'}`,
               borderRadius: '8px', padding: '0.7rem',
-              color: (title.trim() && date) ? '#00b4ff' : '#4a4a7a',
+              color: (title.trim() && date) ? 'var(--accent)' : 'var(--text-muted)',
               fontSize: '0.88rem', fontWeight: 600,
               cursor: (title.trim() && date) ? 'pointer' : 'not-allowed',
               fontFamily: 'sans-serif', transition: 'all 0.2s',
@@ -454,7 +454,7 @@ export default function CalendarPage() {
   const today = todayStr()
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0f', fontFamily: 'sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-base)', fontFamily: 'sans-serif' }}>
       {/* Grid bg */}
       <div style={{
         position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
@@ -467,28 +467,28 @@ export default function CalendarPage() {
       <header style={{
         position: 'sticky', top: 0, zIndex: 10,
         background: 'rgba(13,13,26,0.92)', backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid #1a1a3e',
+        borderBottom: '1px solid var(--border)',
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.25rem', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none', color: '#4a4a7a', fontSize: '0.78rem' }}>
+            <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none', color: 'var(--text-muted)', fontSize: '0.78rem' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
               Tools
             </a>
-            <span style={{ color: '#1a1a3e' }}>·</span>
+            <span style={{ color: 'var(--border)' }}>·</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
               <div style={{
                 width: '24px', height: '24px', borderRadius: '5px',
                 background: 'rgba(0,180,255,0.12)', border: '1px solid rgba(0,180,255,0.3)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00b4ff" strokeWidth="2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
                   <rect x="3" y="4" width="18" height="18" rx="2"/>
                   <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
                   <line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
               </div>
-              <span style={{ color: '#e0e0ff', fontWeight: 600, fontSize: '0.88rem' }}>Calendar</span>
+              <span style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '0.88rem' }}>Calendar</span>
             </div>
           </div>
           {/* Tabs */}
@@ -499,14 +499,14 @@ export default function CalendarPage() {
                 fontWeight: 500, cursor: 'pointer', fontFamily: 'sans-serif',
                 background: tab === key ? 'rgba(0,180,255,0.15)' : 'transparent',
                 border: `1px solid ${tab === key ? 'rgba(0,180,255,0.35)' : 'transparent'}`,
-                color: tab === key ? '#00b4ff' : '#4a4a7a', transition: 'all 0.15s',
+                color: tab === key ? 'var(--accent)' : 'var(--text-muted)', transition: 'all 0.15s',
               }}>{label}</button>
             ))}
           </div>
           {user && (
             <button onClick={async () => { await supabase.auth.signOut(); router.push('/') }} style={{
-              background: 'none', border: '1px solid #1a1a3e', borderRadius: '6px',
-              padding: '0.3rem 0.7rem', color: '#4a4a7a', fontSize: '0.75rem',
+              background: 'none', border: '1px solid var(--border)', borderRadius: '6px',
+              padding: '0.3rem 0.7rem', color: 'var(--text-muted)', fontSize: '0.75rem',
               cursor: 'pointer', fontFamily: 'sans-serif',
             }}>Sign out</button>
           )}
@@ -520,20 +520,20 @@ export default function CalendarPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: '1.25rem', alignItems: 'start' }}>
 
             {/* Calendar */}
-            <div style={{ background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '14px', overflow: 'hidden' }}>
+            <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '14px', overflow: 'hidden' }}>
               {/* Month nav */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 1.25rem', borderBottom: '1px solid #1a1a3e' }}>
-                <button onClick={prevMonth} style={{ background: 'none', border: '1px solid #1a1a3e', borderRadius: '6px', padding: '0.35rem 0.65rem', color: '#4a4a7a', cursor: 'pointer', fontSize: '0.9rem' }}>‹</button>
-                <h2 style={{ color: '#e0e0ff', fontSize: '1rem', fontWeight: 600, margin: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 1.25rem', borderBottom: '1px solid var(--border)' }}>
+                <button onClick={prevMonth} style={{ background: 'none', border: '1px solid var(--border)', borderRadius: '6px', padding: '0.35rem 0.65rem', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '0.9rem' }}>‹</button>
+                <h2 style={{ color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 600, margin: 0 }}>
                   {MONTHS[month]} {year}
                 </h2>
-                <button onClick={nextMonth} style={{ background: 'none', border: '1px solid #1a1a3e', borderRadius: '6px', padding: '0.35rem 0.65rem', color: '#4a4a7a', cursor: 'pointer', fontSize: '0.9rem' }}>›</button>
+                <button onClick={nextMonth} style={{ background: 'none', border: '1px solid var(--border)', borderRadius: '6px', padding: '0.35rem 0.65rem', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '0.9rem' }}>›</button>
               </div>
 
               {/* Day headers */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', borderBottom: '1px solid #1a1a3e' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', borderBottom: '1px solid var(--border)' }}>
                 {DAYS.map(d => (
-                  <div key={d} style={{ textAlign: 'center', padding: '0.6rem 0', color: '#4a4a7a', fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{d}</div>
+                  <div key={d} style={{ textAlign: 'center', padding: '0.6rem 0', color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{d}</div>
                 ))}
               </div>
 
@@ -541,7 +541,7 @@ export default function CalendarPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)' }}>
                 {/* Empty cells */}
                 {Array.from({ length: firstDay }).map((_, i) => (
-                  <div key={`empty-${i}`} style={{ minHeight: '80px', borderRight: '1px solid #1a1a3e', borderBottom: '1px solid #1a1a3e', opacity: 0.3 }}/>
+                  <div key={`empty-${i}`} style={{ minHeight: '80px', borderRight: '1px solid var(--border)', borderBottom: '1px solid var(--border)', opacity: 0.3 }}/>
                 ))}
 
                 {/* Day cells */}
@@ -558,8 +558,8 @@ export default function CalendarPage() {
                       onClick={() => handleDayClick(dayNum)}
                       style={{
                         minHeight: '80px', padding: '0.4rem',
-                        borderRight: col === 6 ? 'none' : '1px solid #1a1a3e',
-                        borderBottom: '1px solid #1a1a3e',
+                        borderRight: col === 6 ? 'none' : '1px solid var(--border)',
+                        borderBottom: '1px solid var(--border)',
                         background: isSelected ? 'rgba(0,180,255,0.06)' : 'transparent',
                         cursor: 'pointer', transition: 'background 0.15s',
                         position: 'relative',
@@ -570,8 +570,8 @@ export default function CalendarPage() {
                       <div style={{
                         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                         width: '24px', height: '24px', borderRadius: '50%', marginBottom: '4px',
-                        background: isToday ? '#00b4ff' : 'transparent',
-                        color: isToday ? '#0a0a0f' : isSelected ? '#00b4ff' : col === 0 ? '#f87171' : '#e0e0ff',
+                        background: isToday ? 'var(--accent)' : 'transparent',
+                        color: isToday ? 'var(--bg-base)' : isSelected ? 'var(--accent)' : col === 0 ? 'var(--danger)' : 'var(--text-primary)',
                         fontSize: '0.78rem', fontWeight: isToday ? 700 : 400,
                       }}>{dayNum}</div>
 
@@ -588,7 +588,7 @@ export default function CalendarPage() {
                           </div>
                         ))}
                         {dayEvents.length > 3 && (
-                          <div style={{ fontSize: '0.6rem', color: '#4a4a7a' }}>+{dayEvents.length - 3} more</div>
+                          <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>+{dayEvents.length - 3} more</div>
                         )}
                       </div>
                     </div>
@@ -598,19 +598,19 @@ export default function CalendarPage() {
 
               {/* Selected day events */}
               {selectedDate && (
-                <div style={{ padding: '1rem 1.25rem', borderTop: '1px solid #1a1a3e' }}>
+                <div style={{ padding: '1rem 1.25rem', borderTop: '1px solid var(--border)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                    <h3 style={{ color: '#e0e0ff', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>
+                    <h3 style={{ color: 'var(--text-primary)', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>
                       {fmtDate(selectedDate)}
                     </h3>
                     <button onClick={() => { setEditEvent(null); setModalOpen(true) }} style={{
                       background: 'rgba(0,180,255,0.12)', border: '1px solid rgba(0,180,255,0.3)',
                       borderRadius: '6px', padding: '0.3rem 0.7rem',
-                      color: '#00b4ff', fontSize: '0.75rem', cursor: 'pointer', fontFamily: 'sans-serif',
+                      color: 'var(--accent)', fontSize: '0.75rem', cursor: 'pointer', fontFamily: 'sans-serif',
                     }}>+ Add</button>
                   </div>
                   {selectedDayEvents.length === 0 ? (
-                    <p style={{ color: '#4a4a7a', fontSize: '0.8rem', margin: 0 }}>No events. Click + Add to create one.</p>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0 }}>No events. Click + Add to create one.</p>
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                       {selectedDayEvents.map(ev => {
@@ -626,8 +626,8 @@ export default function CalendarPage() {
                           >
                             <span style={{ fontSize: '0.85rem' }}>{cfg.icon}</span>
                             <div style={{ flex: 1, minWidth: 0 }}>
-                              <div style={{ color: '#e0e0ff', fontSize: '0.82rem', fontWeight: 500 }}>{ev.title}</div>
-                              {ev.time && <div style={{ color: '#4a4a7a', fontSize: '0.72rem' }}>{ev.time.slice(0,5)}</div>}
+                              <div style={{ color: 'var(--text-primary)', fontSize: '0.82rem', fontWeight: 500 }}>{ev.title}</div>
+                              {ev.time && <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem' }}>{ev.time.slice(0,5)}</div>}
                             </div>
                             {ev.repeat !== 'none' && (
                               <span style={{ fontSize: '0.65rem', color: ev.color, background: `${ev.color}15`, padding: '1px 5px', borderRadius: '99px' }}>
@@ -644,17 +644,17 @@ export default function CalendarPage() {
             </div>
 
             {/* Sidebar — upcoming events */}
-            <div style={{ background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '14px', overflow: 'hidden' }}>
-              <div style={{ padding: '1rem 1.1rem', borderBottom: '1px solid #1a1a3e' }}>
-                <h3 style={{ color: '#e0e0ff', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>Upcoming</h3>
-                <p style={{ color: '#4a4a7a', fontSize: '0.72rem', margin: '0.2rem 0 0' }}>Next occurrences</p>
+            <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '14px', overflow: 'hidden' }}>
+              <div style={{ padding: '1rem 1.1rem', borderBottom: '1px solid var(--border)' }}>
+                <h3 style={{ color: 'var(--text-primary)', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>Upcoming</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.72rem', margin: '0.2rem 0 0' }}>Next occurrences</p>
               </div>
 
               <div style={{ maxHeight: '600px', overflowY: 'auto', padding: '0.75rem' }}>
                 {loading ? (
-                  <p style={{ color: '#4a4a7a', fontSize: '0.8rem', textAlign: 'center', padding: '1rem' }}>Loading...</p>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', padding: '1rem' }}>Loading...</p>
                 ) : upcomingEvs.length === 0 ? (
-                  <p style={{ color: '#4a4a7a', fontSize: '0.8rem', textAlign: 'center', padding: '1rem' }}>No upcoming events</p>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', padding: '1rem' }}>No upcoming events</p>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     {upcomingEvs.map((ev, idx) => {
@@ -677,18 +677,18 @@ export default function CalendarPage() {
                           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.4rem' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flex: 1, minWidth: 0 }}>
                               <span style={{ fontSize: '0.85rem', flexShrink: 0 }}>{cfg.icon}</span>
-                              <span style={{ color: '#e0e0ff', fontSize: '0.8rem', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                              <span style={{ color: 'var(--text-primary)', fontSize: '0.8rem', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                 {ev.title}
                               </span>
                             </div>
                             <span style={{
                               fontSize: '0.65rem', fontWeight: 700, flexShrink: 0,
-                              color: isUrgent ? '#f87171' : '#4a4a7a',
+                              color: isUrgent ? 'var(--danger)' : 'var(--text-muted)',
                               background: isUrgent ? 'rgba(248,113,113,0.1)' : 'rgba(74,74,122,0.15)',
                               padding: '2px 6px', borderRadius: '99px',
                             }}>{diffLabel}</span>
                           </div>
-                          <div style={{ color: '#4a4a7a', fontSize: '0.7rem', marginTop: '0.25rem', paddingLeft: '1.4rem' }}>
+                          <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem', marginTop: '0.25rem', paddingLeft: '1.4rem' }}>
                             {fmtDate(ev._displayDate)}
                             {ev.repeat !== 'none' && <span style={{ marginLeft: '4px', color: ev.color }}>↻</span>}
                           </div>
@@ -705,8 +705,8 @@ export default function CalendarPage() {
         {/* ── TAB 2: ADD EVENT ── */}
         {tab === 'events' && (
           <div style={{ maxWidth: '560px', margin: '0 auto' }}>
-            <div style={{ background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '14px', padding: '1.75rem' }}>
-              <h2 style={{ color: '#e0e0ff', fontSize: '1.05rem', fontWeight: 600, margin: '0 0 1.5rem', letterSpacing: '-0.01em' }}>
+            <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '14px', padding: '1.75rem' }}>
+              <h2 style={{ color: 'var(--text-primary)', fontSize: '1.05rem', fontWeight: 600, margin: '0 0 1.5rem', letterSpacing: '-0.01em' }}>
                 Add new event
               </h2>
 
@@ -716,7 +716,7 @@ export default function CalendarPage() {
                   <input value={formTitle} onChange={e => setFormTitle(e.target.value)} required
                     placeholder="Event name..." style={inputCss}
                     onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                    onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                    onBlur={e => e.target.style.borderColor = 'var(--border)'}
                   />
                 </div>
 
@@ -729,8 +729,8 @@ export default function CalendarPage() {
                         padding: '0.35rem 0.75rem', borderRadius: '99px', fontSize: '0.78rem',
                         fontWeight: 500, cursor: 'pointer', fontFamily: 'sans-serif',
                         background: formCategory === key ? `${cfg.color}20` : 'transparent',
-                        border: `1px solid ${formCategory === key ? cfg.color + '60' : '#1a1a3e'}`,
-                        color: formCategory === key ? cfg.color : '#4a4a7a', transition: 'all 0.15s',
+                        border: `1px solid ${formCategory === key ? cfg.color + '60' : 'var(--border)'}`,
+                        color: formCategory === key ? cfg.color : 'var(--text-muted)', transition: 'all 0.15s',
                       }}>
                         {cfg.icon} {cfg.label}
                       </button>
@@ -745,7 +745,7 @@ export default function CalendarPage() {
                     <input type="date" value={formDate} onChange={e => setFormDate(e.target.value)} required
                       style={{ ...inputCss, colorScheme: 'dark' }}
                       onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                      onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                      onBlur={e => e.target.style.borderColor = 'var(--border)'}
                     />
                   </div>
                   <div>
@@ -753,7 +753,7 @@ export default function CalendarPage() {
                     <input type="date" value={formEndDate} onChange={e => setFormEndDate(e.target.value)}
                       style={{ ...inputCss, colorScheme: 'dark' }}
                       onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                      onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                      onBlur={e => e.target.style.borderColor = 'var(--border)'}
                     />
                   </div>
                 </div>
@@ -763,24 +763,24 @@ export default function CalendarPage() {
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', userSelect: 'none' }}>
                     <div onClick={() => setFormAllDay(!formAllDay)} style={{
                       width: '36px', height: '20px', borderRadius: '10px', position: 'relative',
-                      background: formAllDay ? 'rgba(0,180,255,0.3)' : '#1a1a3e',
+                      background: formAllDay ? 'rgba(0,180,255,0.3)' : 'var(--border)',
                       border: `1px solid ${formAllDay ? 'rgba(0,180,255,0.5)' : '#2a2a4e'}`,
                       cursor: 'pointer', transition: 'all 0.2s',
                     }}>
                       <div style={{
                         position: 'absolute', top: '2px', left: formAllDay ? '18px' : '2px',
                         width: '14px', height: '14px', borderRadius: '50%',
-                        background: formAllDay ? '#00b4ff' : '#4a4a7a', transition: 'all 0.2s',
+                        background: formAllDay ? 'var(--accent)' : 'var(--text-muted)', transition: 'all 0.2s',
                       }}/>
                     </div>
-                    <span style={{ color: '#4a4a7a', fontSize: '0.82rem' }}>All day</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>All day</span>
                   </label>
                   {!formAllDay && (
                     <div style={{ flex: 1 }}>
                       <input type="time" value={formTime} onChange={e => setFormTime(e.target.value)}
                         style={{ ...inputCss, colorScheme: 'dark' }}
                         onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                        onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                        onBlur={e => e.target.style.borderColor = 'var(--border)'}
                       />
                     </div>
                   )}
@@ -802,7 +802,7 @@ export default function CalendarPage() {
                     placeholder="Add notes... (optional)" rows={3}
                     style={{ ...inputCss, resize: 'vertical', lineHeight: 1.6 }}
                     onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                    onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                    onBlur={e => e.target.style.borderColor = 'var(--border)'}
                   />
                 </div>
 
@@ -810,14 +810,14 @@ export default function CalendarPage() {
                   <div style={{
                     background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)',
                     borderRadius: '8px', padding: '0.65rem 0.9rem',
-                    color: '#10b981', fontSize: '0.85rem', textAlign: 'center',
+                    color: 'var(--success)', fontSize: '0.85rem', textAlign: 'center',
                   }}>✓ Event added successfully!</div>
                 )}
 
                 <button type="submit" disabled={formLoading || !formTitle.trim()} style={{
                   background: 'rgba(0,180,255,0.15)', border: '1px solid rgba(0,180,255,0.4)',
                   borderRadius: '8px', padding: '0.75rem',
-                  color: '#00b4ff', fontSize: '0.9rem', fontWeight: 600,
+                  color: 'var(--accent)', fontSize: '0.9rem', fontWeight: 600,
                   cursor: formLoading ? 'not-allowed' : 'pointer',
                   fontFamily: 'sans-serif', opacity: formLoading ? 0.7 : 1, transition: 'all 0.2s',
                 }}>
@@ -828,9 +828,9 @@ export default function CalendarPage() {
 
             {/* Recent events list */}
             {events.length > 0 && (
-              <div style={{ marginTop: '1.25rem', background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: '14px', overflow: 'hidden' }}>
-                <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid #1a1a3e' }}>
-                  <h3 style={{ color: '#e0e0ff', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>All events ({events.length})</h3>
+              <div style={{ marginTop: '1.25rem', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '14px', overflow: 'hidden' }}>
+                <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--border)' }}>
+                  <h3 style={{ color: 'var(--text-primary)', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>All events ({events.length})</h3>
                 </div>
                 <div style={{ maxHeight: '360px', overflowY: 'auto' }}>
                   {events.map(ev => {
@@ -840,7 +840,7 @@ export default function CalendarPage() {
                         onClick={() => { setEditEvent(ev); setModalOpen(true) }}
                         style={{
                           display: 'flex', alignItems: 'center', gap: '0.75rem',
-                          padding: '0.75rem 1.25rem', borderBottom: '1px solid #1a1a3e',
+                          padding: '0.75rem 1.25rem', borderBottom: '1px solid var(--border)',
                           cursor: 'pointer', transition: 'background 0.15s',
                         }}
                         onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
@@ -848,8 +848,8 @@ export default function CalendarPage() {
                       >
                         <span style={{ fontSize: '1rem' }}>{cfg.icon}</span>
                         <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ color: '#e0e0ff', fontSize: '0.82rem', fontWeight: 500 }}>{ev.title}</div>
-                          <div style={{ color: '#4a4a7a', fontSize: '0.72rem', marginTop: '1px' }}>
+                          <div style={{ color: 'var(--text-primary)', fontSize: '0.82rem', fontWeight: 500 }}>{ev.title}</div>
+                          <div style={{ color: 'var(--text-muted)', fontSize: '0.72rem', marginTop: '1px' }}>
                             {fmtDate(ev.date)}
                             {ev.repeat !== 'none' && <span style={{ marginLeft: '6px', color: ev.color }}>↻ {ev.repeat}</span>}
                           </div>

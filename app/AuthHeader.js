@@ -28,18 +28,18 @@ export function AuthHeader() {
 
   if (user) return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-      <span style={{ color: '#4a4a7a', fontSize: '0.78rem', maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      <span style={{ color: 'var(--text-muted)', fontSize: '0.78rem', maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {user.email}
       </span>
       <button
         onClick={async () => { await supabase.auth.signOut(); setUser(null) }}
         style={{
-          background: 'none', border: '1px solid #1a1a3e', borderRadius: '6px',
-          padding: '0.3rem 0.7rem', color: '#4a4a7a', fontSize: '0.75rem',
+          background: 'none', border: '1px solid var(--border)', borderRadius: '6px',
+          padding: '0.3rem 0.7rem', color: 'var(--text-muted)', fontSize: '0.75rem',
           cursor: 'pointer', fontFamily: 'sans-serif', transition: 'all 0.15s',
         }}
-        onMouseEnter={e => { e.currentTarget.style.color = '#e0e0ff'; e.currentTarget.style.borderColor = '#4a4a7a' }}
-        onMouseLeave={e => { e.currentTarget.style.color = '#4a4a7a'; e.currentTarget.style.borderColor = '#1a1a3e' }}
+        onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.borderColor = 'var(--text-muted)' }}
+        onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.borderColor = 'var(--border)' }}
       >
         Sign out
       </button>
@@ -50,7 +50,7 @@ export function AuthHeader() {
     <a href="/login" style={{
       background: 'rgba(0,180,255,0.12)', border: '1px solid rgba(0,180,255,0.35)',
       borderRadius: '7px', padding: '0.35rem 0.85rem',
-      color: '#00b4ff', fontSize: '0.8rem', fontWeight: 600,
+      color: 'var(--accent)', fontSize: '0.8rem', fontWeight: 600,
       textDecoration: 'none', transition: 'all 0.2s', display: 'inline-block',
     }}
       onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,180,255,0.22)' }}

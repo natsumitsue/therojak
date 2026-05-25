@@ -8,10 +8,10 @@ const inputCss = {
   width: '100%',
   boxSizing: 'border-box',
   background: 'rgba(255,255,255,0.03)',
-  border: '1px solid #1a1a3e',
+  border: '1px solid var(--border)',
   borderRadius: '8px',
   padding: '0.68rem 0.9rem',
-  color: '#e0e0ff',
+  color: 'var(--text-primary)',
   fontSize: '0.9rem',
   outline: 'none',
   fontFamily: 'sans-serif',
@@ -20,7 +20,7 @@ const inputCss = {
 
 const labelCss = {
   display: 'block',
-  color: '#4a4a7a',
+  color: 'var(--text-muted)',
   fontSize: '0.72rem',
   fontWeight: 600,
   marginBottom: '0.4rem',
@@ -60,7 +60,7 @@ function LoginForm() {
 
   return (
     <div style={{
-      minHeight: '100vh', background: '#0a0a0f',
+      minHeight: '100vh', background: 'var(--bg-base)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       fontFamily: 'sans-serif', padding: '1rem', position: 'relative', overflow: 'hidden',
     }}>
@@ -88,7 +88,7 @@ function LoginForm() {
                 background: 'rgba(0,180,255,0.12)', border: '1px solid rgba(0,180,255,0.35)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00b4ff" strokeWidth="2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
                   <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/>
                   <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                   <path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/>
@@ -99,24 +99,24 @@ function LoginForm() {
                   <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/>
                 </svg>
               </div>
-              <span style={{ fontSize: '1.3rem', fontWeight: 700, color: '#e0e0ff', letterSpacing: '-0.02em' }}>
+              <span style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                 TheRojak
               </span>
             </div>
-            <span style={{ color: '#4a4a7a', fontSize: '0.78rem' }}>Free online tools</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>Free online tools</span>
           </a>
         </div>
 
         {/* Card */}
         <div style={{
-          background: '#0d0d1a', border: '1px solid #1a1a3e',
+          background: 'var(--bg-card)', border: '1px solid var(--border)',
           borderRadius: '16px', padding: '1.75rem',
           boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
         }}>
-          <h1 style={{ color: '#e0e0ff', fontSize: '1.15rem', fontWeight: 600, margin: '0 0 0.2rem', letterSpacing: '-0.02em' }}>
+          <h1 style={{ color: 'var(--text-primary)', fontSize: '1.15rem', fontWeight: 600, margin: '0 0 0.2rem', letterSpacing: '-0.02em' }}>
             {isSignUp ? 'Create account' : 'Sign in'}
           </h1>
-          <p style={{ color: '#4a4a7a', fontSize: '0.82rem', margin: '0 0 1.5rem' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', margin: '0 0 1.5rem' }}>
             {isSignUp
               ? 'Get access to Task Tracker and more'
               : next !== '/' ? `Sign in to continue to ${next.replace('/tools/', '')}` : 'Access your tools'}
@@ -129,7 +129,7 @@ function LoginForm() {
                 type="email" value={email} onChange={e => setEmail(e.target.value)}
                 required placeholder="you@example.com" style={inputCss}
                 onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                onBlur={e => e.target.style.borderColor = 'var(--border)'}
               />
             </div>
             <div>
@@ -138,7 +138,7 @@ function LoginForm() {
                 type="password" value={password} onChange={e => setPassword(e.target.value)}
                 required placeholder="••••••••" style={inputCss}
                 onFocus={e => e.target.style.borderColor = 'rgba(0,180,255,0.5)'}
-                onBlur={e => e.target.style.borderColor = '#1a1a3e'}
+                onBlur={e => e.target.style.borderColor = 'var(--border)'}
               />
             </div>
 
@@ -146,21 +146,21 @@ function LoginForm() {
               <div style={{
                 background: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.25)',
                 borderRadius: '8px', padding: '0.6rem 0.9rem',
-                color: '#f87171', fontSize: '0.82rem',
+                color: 'var(--danger)', fontSize: '0.82rem',
               }}>{error}</div>
             )}
             {message && (
               <div style={{
                 background: 'rgba(0,180,255,0.08)', border: '1px solid rgba(0,180,255,0.25)',
                 borderRadius: '8px', padding: '0.6rem 0.9rem',
-                color: '#00b4ff', fontSize: '0.82rem',
+                color: 'var(--accent)', fontSize: '0.82rem',
               }}>{message}</div>
             )}
 
             <button type="submit" disabled={loading} style={{
               background: 'rgba(0,180,255,0.15)', border: '1px solid rgba(0,180,255,0.4)',
               borderRadius: '8px', padding: '0.72rem',
-              color: '#00b4ff', fontSize: '0.9rem', fontWeight: 600,
+              color: 'var(--accent)', fontSize: '0.9rem', fontWeight: 600,
               cursor: loading ? 'not-allowed' : 'pointer',
               fontFamily: 'sans-serif', opacity: loading ? 0.7 : 1,
               transition: 'all 0.2s',
@@ -169,11 +169,11 @@ function LoginForm() {
             </button>
           </form>
 
-          <p style={{ textAlign: 'center', marginTop: '1.25rem', color: '#4a4a7a', fontSize: '0.82rem' }}>
+          <p style={{ textAlign: 'center', marginTop: '1.25rem', color: 'var(--text-muted)', fontSize: '0.82rem' }}>
             {isSignUp ? 'Already have an account? ' : "Don't have an account? "}
             <button
               onClick={() => { setIsSignUp(!isSignUp); setError(''); setMessage('') }}
-              style={{ background: 'none', border: 'none', color: '#00b4ff', cursor: 'pointer', fontSize: '0.82rem', padding: 0 }}
+              style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: '0.82rem', padding: 0 }}
             >
               {isSignUp ? 'Sign in' : 'Sign up'}
             </button>
@@ -181,7 +181,7 @@ function LoginForm() {
         </div>
 
         <p style={{ textAlign: 'center', marginTop: '1.25rem' }}>
-          <a href="/" style={{ color: '#4a4a7a', fontSize: '0.78rem', textDecoration: 'none' }}>
+          <a href="/" style={{ color: 'var(--text-muted)', fontSize: '0.78rem', textDecoration: 'none' }}>
             ← Back to all tools
           </a>
         </p>

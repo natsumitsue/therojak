@@ -3,6 +3,19 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+    /* Tambah baris ni */
+  --bg-base: #0a0a0f;
+  --bg-card: #0d0d1a;
+  --border: #1a1a3e;
+  --accent: #00b4ff;
+  --text-primary: #e0e0ff;
+  --text-muted: #4a4a7a;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #f87171;
+  --purple: #a78bfa;
+  --pink: #f472b6;
 }
 
 @theme inline {
