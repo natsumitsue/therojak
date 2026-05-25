@@ -136,8 +136,8 @@ async function pageSpeedCheck(url) {
 
   // Fetch both mobile and desktop
   const [mobileRes, desktopRes] = await Promise.allSettled([
-    safeFetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(fullUrl)}&strategy=mobile&key=${process.env.PAGESPEED_API_KEY}`)
-    safeFetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(fullUrl)}&strategy=desktop&key=${process.env.PAGESPEED_API_KEY}`)
+    safeFetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(fullUrl)}&strategy=mobile&key=${process.env.PAGESPEED_API_KEY}`),
+    safeFetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(fullUrl)}&strategy=desktop&key=${process.env.PAGESPEED_API_KEY}`),
   ])
 
   const mobile  = mobileRes.status === 'fulfilled'  ? mobileRes.value  : null
