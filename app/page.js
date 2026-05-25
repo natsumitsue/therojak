@@ -1,4 +1,6 @@
-import Link from 'next/link';
+'use client'
+import Link from 'next/link'
+import { AuthHeader } from './AuthHeader'
 
 export default function Home() {
   const tools = [
@@ -17,7 +19,7 @@ export default function Home() {
           <span style={{width: '8px', height: '8px', borderRadius: '50%', background: '#00b4ff', boxShadow: '0 0 8px #00b4ff', display: 'inline-block'}}></span>
           <span style={{color: '#fff', fontSize: '20px', fontWeight: '500'}}>The<span style={{color: '#00b4ff'}}>Rojak</span></span>
         </div>
-        <span style={{color: '#4a4a7a', fontSize: '13px'}}>Free Online Tools</span>
+        <AuthHeader />
       </header>
 
       <section style={{textAlign: 'center', padding: '60px 24px 40px', background: 'linear-gradient(180deg, #0d0d1a 0%, #0a0a0f 100%)'}}>
