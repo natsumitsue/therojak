@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase-server'
 
-// GET /api/bookings?asset_id=xxx (optional filter)
 export async function GET(req) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -24,7 +23,6 @@ export async function GET(req) {
   return NextResponse.json(data)
 }
 
-// POST /api/bookings — create booking
 export async function POST(req) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -32,7 +30,6 @@ export async function POST(req) {
 
   const body = await req.json()
 
-  // Check for conflicts — same asset, overlapping dates, active/pending/approved bookings
   const { data: conflicts } = await supabase
     .from('asset_bookings')
     .select('id, quantity, status')
@@ -41,13 +38,11 @@ export async function POST(req) {
     .lte('start_date', body.end_date)
     .gte('end_date', body.start_date)
 
-  // Sum up booked quantity in conflicting period
   const bookedQty = (conflicts || []).reduce((sum, b) => sum + b.quantity, 0)
 
-  // Check asset availability
   const { data: asset } = await supabase
     .from('assets')
-    .select('available, quantity')
+    .select('available, quantity, in_store, in_use')
     .eq('id', body.asset_id)
     .single()
 
@@ -55,34 +50,26 @@ export async function POST(req) {
 
   const remainingQty = asset.quantity - bookedQty
   if (remainingQty < body.quantity) {
-    return NextResponse.json({
-      error: `Only ${remainingQty} unit(s) available for the selected dates`
-    }, { status: 409 })
+    return NextResponse.json({ error: `Only ${remainingQty} unit(s) available for selected dates` }, { status: 409 })
   }
 
   const { data, error } = await supabase
     .from('asset_bookings')
-    .insert({
-      ...body,
-      user_id: user.id,
-      user_email: user.email,
-      status: 'approved', // auto-approve for now
-    })
+    .insert({ ...body, user_id: user.id, user_email: user.email, status: 'approved' })
     .select()
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  // Update asset available count
-  await supabase
-    .from('assets')
-    .update({ available: remainingQty - body.quantity })
-    .eq('id', body.asset_id)
+  // Update available and in_store
+  await supabase.from('assets').update({
+    available: remainingQty - body.quantity,
+    in_store: Math.max(0, asset.in_store - body.quantity),
+  }).eq('id', body.asset_id)
 
   return NextResponse.json(data, { status: 201 })
 }
 
-// PATCH /api/bookings — update status (checkout/return/cancel)
 export async function PATCH(req) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -105,19 +92,30 @@ export async function PATCH(req) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  // If returned or cancelled — restore available count
-  if (status === 'returned' || status === 'cancelled') {
-    const { data: asset } = await supabase
-      .from('assets')
-      .select('available')
-      .eq('id', booking.asset_id)
-      .single()
+  const { data: asset } = await supabase
+    .from('assets')
+    .select('available, in_store, in_use')
+    .eq('id', booking.asset_id)
+    .single()
 
-    if (asset) {
-      await supabase
-        .from('assets')
-        .update({ available: asset.available + booking.quantity })
-        .eq('id', booking.asset_id)
+  if (asset) {
+    if (status === 'active') {
+      // Checked out: in_use++
+      await supabase.from('assets').update({
+        in_use: asset.in_use + booking.quantity,
+      }).eq('id', booking.asset_id)
+    } else if (status === 'returned') {
+      // Returned: restore available + in_store, in_use--
+      await supabase.from('assets').update({
+        available: asset.available + booking.quantity,
+        in_store: asset.in_store + booking.quantity,
+        in_use: Math.max(0, asset.in_use - booking.quantity),
+      }).eq('id', booking.asset_id)
+    } else if (status === 'cancelled') {
+      await supabase.from('assets').update({
+        available: asset.available + booking.quantity,
+        in_store: asset.in_store + booking.quantity,
+      }).eq('id', booking.asset_id)
     }
   }
 

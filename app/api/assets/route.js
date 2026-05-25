@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase-server'
 
-// GET /api/assets
 export async function GET() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -16,16 +15,25 @@ export async function GET() {
   return NextResponse.json(data)
 }
 
-// POST /api/assets
 export async function POST(req) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await req.json()
+  const qty = parseInt(body.quantity) || 1
   const { data, error } = await supabase
     .from('assets')
-    .insert({ ...body, created_by: user.id, available: body.quantity })
+    .insert({
+      ...body,
+      quantity: qty,
+      available: qty,
+      in_store: qty,
+      in_use: 0,
+      in_repair: 0,
+      others: 0,
+      created_by: user.id,
+    })
     .select()
     .single()
 
@@ -33,7 +41,6 @@ export async function POST(req) {
   return NextResponse.json(data, { status: 201 })
 }
 
-// PATCH /api/assets
 export async function PATCH(req) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -53,7 +60,6 @@ export async function PATCH(req) {
   return NextResponse.json(data)
 }
 
-// DELETE /api/assets?id=xxx
 export async function DELETE(req) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
