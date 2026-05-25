@@ -18,13 +18,13 @@ export default function Home() {
       <header style={{background: 'var(--bg-card)', borderBottom: '1px solid var(--border)', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
         <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
           <span style={{width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 8px var(--accent)', display: 'inline-block'}}></span>
-          <span style={{color: '#fff', fontSize: '20px', fontWeight: '500'}}>The<span style={{color: 'var(--accent)'}}>Rojak</span></span>
+          <span style={{color: 'var(--text-primary)', fontSize: '20px', fontWeight: '500'}}>The<span style={{color: 'var(--accent)'}}>Rojak</span></span>
         </div>
         <AuthHeader />
       </header>
 
       <section style={{textAlign: 'center', padding: '60px 24px 40px', background: 'linear-gradient(180deg, var(--bg-card) 0%, var(--bg-base), 100%)'}}>
-        <h1 style={{color: '#fff', fontSize: '36px', fontWeight: '500', margin: '0 0 12px'}}>
+        <h1 style={{color: 'var(--text-primary)', fontSize: '36px', fontWeight: '500', margin: '0 0 12px'}}>
           Your Everyday <span style={{color: 'var(--accent)'}}>Free Tools</span>
         </h1>
         <p style={{color: 'var(--text-muted)', fontSize: '16px', margin: '0'}}>Simple, fast, and free. No signup required.</p>

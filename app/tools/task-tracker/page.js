@@ -537,7 +537,7 @@ export default function TaskTrackerPage() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 10,
-        background: 'rgba(13,13,26,0.92)', backdropFilter: 'blur(12px)',
+        background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)',
         borderBottom: '1px solid var(--border)',
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.25rem', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
